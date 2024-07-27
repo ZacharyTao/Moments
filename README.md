@@ -3,7 +3,7 @@
 Contact zacharywtao@gmail.com to join the internal testing group on TestFlight!
 
 ## Overview
-Moments is a social media application for iOS, designed to enhance real-time photo sharing experiences. Moments is not just about sharing images; it's about sharing experience.
+Moments is a social media application developed for iOS, allowing users to capture and share photos in real-time. The app integrates various Apple frameworks to deliver a seamless and engaging user experience.
 
 ## Features
 <p float="left">
@@ -18,17 +18,33 @@ Moments is a social media application for iOS, designed to enhance real-time pho
   <img src="https://github.com/ZacharyTao/Moment---photo-sharing-app/assets/111452513/bd14e2f6-6788-41e9-ac4d-5bf6b0a93344" width="200" />
 </p>
 
+- **Real-time Photo Capturing and Sharing:** Capture and share moments instantly with your friends and followers.
+- **User Interface:** Built with SwiftUI for a modern, responsive interface, and UIKit for specific UI components.
+- **Custom Camera Functionalities:** Utilizes AVFoundation to provide a tailored camera experience.
+- **Location Sharing:** CoreLocation framework enables users to share the location and time of their photos.
+- **Home Screen Widget:** WidgetKit displays recent photos directly on the home screen for quick access.
+- **Secure User Authentication:** Firebase Authentication ensures secure sign-in and user management.
+- **Cloud Storage:** Cloud Firestore is used for efficient data storage and photo uploads.
+- **Real-time Push Notifications:** Cloud Functions and TypeScript are employed to send notifications based on database updates, enhancing user engagement.
 
-- **Custom Camera Functionality:** Utilizes AVFoundation for advanced camera features, allowing users to capture photos in-app.
-- **Real-time Photo Sharing:** Seamlessly share captured moments with friends, complete with time and geolocation data.
-- **iOS Home Screen Widget:** Implements WidgetKit to display recent photos on the user’s home screen, ensuring quick access and continuous engagement.
-- **Firebase Integration:** Robust user authentication with Firebase. Firestore is used for data management and storing photo uploads.
+## Installation
+
+To join the internal testing group, please contact zacharywtao@gmail.com
 
 ## Usage
 
-After launching the app, users can sign in or sign up using their email. Once authenticated, users can:
+After launching the app, users can sign in or sign up using Apple or Google accounts. Once authenticated, users can:
 
 - Capture new photos or select from their gallery.
 - Share photos with friends, including captions, time, and place.
 - View recent shared moments on the iOS home screen widget.
+
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request with your changes.
+
+## Contact
+
+For any inquiries or feedback, please reach out to zacharywtao@gmail.com
+
 
