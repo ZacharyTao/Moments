@@ -197,6 +197,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EF12A2F12C55B34C00F0F57B /* ConnectionDetailView */ = {
+			isa = PBXGroup;
+			children = (
+				EF45E5362BD2D60200ED8237 /* NewAnniSheetView.swift */,
+				EF45E53C2BD5F6EC00ED8237 /* MoodChoosingView.swift */,
+				EF45E5342BD2CB9C00ED8237 /* ConnectionDetailViewModel.swift */,
+				EF45E5322BD21B5800ED8237 /* AnniversaryView.swift */,
+				EF45E52E2BD20F6900ED8237 /* ConnectionDetailView.swift */,
+			);
+			path = ConnectionDetailView;
+			sourceTree = "<group>";
+		};
 		EF45E5282BD059E900ED8237 /* CameraView */ = {
 			isa = PBXGroup;
 			children = (
@@ -241,6 +253,7 @@
 		EF872FCE2C3231D10072AE93 /* MomentsWidget */ = {
 			isa = PBXGroup;
 			children = (
+				EF45E57D2BD9AE2B00ED8237 /* MomentsWidgetExtension.entitlements */,
 				EF872FCF2C3231D10072AE93 /* MomentsWidgetBundle.swift */,
 				EF872FD12C3231D10072AE93 /* MomentsWidget.swift */,
 				EF872FD32C3231D20072AE93 /* Assets.xcassets */,
@@ -277,7 +290,6 @@
 			isa = PBXGroup;
 			children = (
 				EF872FBE2C3224940072AE93 /* GoogleService-Info.plist */,
-				EF45E57D2BD9AE2B00ED8237 /* MomentsWidgetExtension.entitlements */,
 				EFE601932BAF4575004E816C /* Moments */,
 				EF872FCE2C3231D10072AE93 /* MomentsWidget */,
 				EFE601922BAF4575004E816C /* Products */,
@@ -326,15 +338,11 @@
 			children = (
 				EFE601962BAF4575004E816C /* HomeView.swift */,
 				EF0DB6E22BCCCD2800BA0E0C /* AppView.swift */,
+				EF12A2F12C55B34C00F0F57B /* ConnectionDetailView */,
 				EF45E52A2BD05A9300ED8237 /* MainView */,
 				EF45E5292BD05A1500ED8237 /* Extras */,
 				EF45E5282BD059E900ED8237 /* CameraView */,
 				EFE601AC2BAF5CBB004E816C /* ChatView */,
-				EF45E52E2BD20F6900ED8237 /* ConnectionDetailView.swift */,
-				EF45E5322BD21B5800ED8237 /* AnniversaryView.swift */,
-				EF45E5342BD2CB9C00ED8237 /* ConnectionDetailViewModel.swift */,
-				EF45E5362BD2D60200ED8237 /* NewAnniSheetView.swift */,
-				EF45E53C2BD5F6EC00ED8237 /* MoodChoosingView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -582,7 +590,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CODE_SIGN_ENTITLEMENTS = MomentsWidgetExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = MomentsWidget/MomentsWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -612,7 +620,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CODE_SIGN_ENTITLEMENTS = MomentsWidgetExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = MomentsWidget/MomentsWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
