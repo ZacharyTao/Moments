@@ -43,7 +43,6 @@
 		EFE601952BAF4575004E816C /* MomentsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFE601942BAF4575004E816C /* MomentsApp.swift */; };
 		EFE601972BAF4575004E816C /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFE601962BAF4575004E816C /* HomeView.swift */; };
 		EFE601992BAF4576004E816C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EFE601982BAF4576004E816C /* Assets.xcassets */; };
-		EFE6019C2BAF4576004E816C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EFE6019B2BAF4576004E816C /* Preview Assets.xcassets */; };
 		EFE601A32BAF4615004E816C /* PhotoChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFE601A22BAF4615004E816C /* PhotoChatView.swift */; };
 		EFE601A52BAF461B004E816C /* PhotoMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFE601A42BAF461B004E816C /* PhotoMessageView.swift */; };
 		EFE601A72BAF5146004E816C /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFE601A62BAF5146004E816C /* Message.swift */; };
@@ -137,7 +136,6 @@
 		EFE601942BAF4575004E816C /* MomentsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MomentsApp.swift; sourceTree = "<group>"; };
 		EFE601962BAF4575004E816C /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		EFE601982BAF4576004E816C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		EFE6019B2BAF4576004E816C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		EFE601A22BAF4615004E816C /* PhotoChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoChatView.swift; sourceTree = "<group>"; };
 		EFE601A42BAF461B004E816C /* PhotoMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoMessageView.swift; sourceTree = "<group>"; };
 		EFE601A62BAF5146004E816C /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
@@ -266,6 +264,7 @@
 			children = (
 				EFE601E12BB4D66A004E816C /* Camera */,
 				EFE601F82BB63E17004E816C /* LocationDataManager.swift */,
+				EFE601DF2BB485B3004E816C /* UserDataManager.swift */,
 				EFE601FC2BB8F2AF004E816C /* helpers.swift */,
 				EF45E53A2BD5B47600ED8237 /* ScrollDetector.swift */,
 				EF45E53E2BD60A0400ED8237 /* PinchZoom.swift */,
@@ -277,8 +276,8 @@
 		EFE601882BAF4575004E816C = {
 			isa = PBXGroup;
 			children = (
-				EF45E57D2BD9AE2B00ED8237 /* MomentsWidgetExtension.entitlements */,
 				EF872FBE2C3224940072AE93 /* GoogleService-Info.plist */,
+				EF45E57D2BD9AE2B00ED8237 /* MomentsWidgetExtension.entitlements */,
 				EFE601932BAF4575004E816C /* Moments */,
 				EF872FCE2C3231D10072AE93 /* MomentsWidget */,
 				EFE601922BAF4575004E816C /* Products */,
@@ -298,27 +297,17 @@
 		EFE601932BAF4575004E816C /* Moments */ = {
 			isa = PBXGroup;
 			children = (
+				EFE601BB2BAF9F60004E816C /* MomentsDebug.entitlements */,
 				EF45E5802BD9B00300ED8237 /* Moments.entitlements */,
 				EFE601942BAF4575004E816C /* MomentsApp.swift */,
-				EFE601DF2BB485B3004E816C /* UserDataManager.swift */,
 				EFC4266D2BC4A4BD00136633 /* Utilities */,
 				EFE601BC2BAFB9E5004E816C /* Auth */,
 				EFE601AB2BAF51FF004E816C /* Views */,
 				EFE601A82BAF51D8004E816C /* Models */,
 				EFE601982BAF4576004E816C /* Assets.xcassets */,
-				EFE601BB2BAF9F60004E816C /* MomentsDebug.entitlements */,
 				EFE601DE2BB33459004E816C /* Info.plist */,
-				EFE6019A2BAF4576004E816C /* Preview Content */,
 			);
 			path = Moments;
-			sourceTree = "<group>";
-		};
-		EFE6019A2BAF4576004E816C /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				EFE6019B2BAF4576004E816C /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		EFE601A82BAF51D8004E816C /* Models */ = {
@@ -506,7 +495,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EFE6019C2BAF4576004E816C /* Preview Assets.xcassets in Resources */,
 				EFE601992BAF4576004E816C /* Assets.xcassets in Resources */,
 				EF872FBF2C3224940072AE93 /* GoogleService-Info.plist in Resources */,
 			);
