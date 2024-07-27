@@ -1,6 +1,6 @@
 # Moments - Photo Sharing App
 
-Contact zacharywtao@gmail.com to join the internal testing group!
+Contact zacharywtao@gmail.com to join the internal testing group on TestFlight!
 
 ## Overview
 Moments is a social media application for iOS, designed to enhance real-time photo sharing experiences. Moments is not just about sharing images; it's about sharing experience.
