@@ -7,19 +7,20 @@ Moments is a social media application developed for iOS, allowing users to captu
 
 ## Features
 
+### Main views 
 <p float="left">
-  <img src="https://github.com/user-attachments/assets/8c0f5db8-0eb8-4a65-b84a-0ac437ce75db" width="150" />
-  <img src="https://github.com/user-attachments/assets/2da80246-7c14-44ce-a53c-b52297c09327" width="150" />
-  <img src="https://github.com/user-attachments/assets/c297d88c-f4b8-47e4-ab13-d2df3f93db88" width="150" />
-  <img src="https://github.com/user-attachments/assets/b8741cc0-70ae-4b37-b669-56a49d9445ef" width="150" />
-
+  <img src="https://github.com/user-attachments/assets/8c0f5db8-0eb8-4a65-b84a-0ac437ce75db" width="200" />
+  <img src="https://github.com/user-attachments/assets/2da80246-7c14-44ce-a53c-b52297c09327" width="200" />
+  <img src="https://github.com/user-attachments/assets/b8741cc0-70ae-4b37-b669-56a49d9445ef" width="200" />
+  <img src="https://github.com/user-attachments/assets/c297d88c-f4b8-47e4-ab13-d2df3f93db88" width="200" />
 </p>
 
+### Sign in/Add friend views
 <p float="left">
-  <img src="https://github.com/user-attachments/assets/99c10a06-61f3-4474-b50e-444aac37c1c3" width="150" />
-  <img src="https://github.com/user-attachments/assets/3e6877fa-e226-40f8-b4bb-e45873c411fb" width="150" /> 
-  <img src="https://github.com/user-attachments/assets/9bc48b0c-3060-414b-80ca-b47ffec8ec14" width="150" />
-  <img src="https://github.com/user-attachments/assets/61373b62-bc22-4e00-b628-facbc7afd52c" width="150" />
+  <img src="https://github.com/user-attachments/assets/99c10a06-61f3-4474-b50e-444aac37c1c3" width="200" />
+  <img src="https://github.com/user-attachments/assets/3e6877fa-e226-40f8-b4bb-e45873c411fb" width="200" /> 
+  <img src="https://github.com/user-attachments/assets/9bc48b0c-3060-414b-80ca-b47ffec8ec14" width="200" />
+  <img src="https://github.com/user-attachments/assets/61373b62-bc22-4e00-b628-facbc7afd52c" width="200" />
 </p>
 
 
