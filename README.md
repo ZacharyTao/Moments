@@ -23,6 +23,10 @@ Moments is a social media application developed for iOS, allowing users to captu
   <img src="https://github.com/user-attachments/assets/61373b62-bc22-4e00-b628-facbc7afd52c" width="200" />
 </p>
 
+### Widget view: small/big size
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/0c56d8a6-62a4-48b3-86a9-6bd4231c9849" width="200" />
+</p>
 
 - **Real-time Photo Capturing and Sharing:** Capture and share moments instantly with your friends and followers.
 - **Home Screen Widget:** WidgetKit displays recent photos directly on the home screen for quick access.
