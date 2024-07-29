@@ -3,7 +3,7 @@
 Contact zacharywtao@gmail.com to join the internal testing group on TestFlight!
 
 ## Overview
-Moments is a social media application developed for iOS, allowing users to capture and share photos in real-time. The app integrates various Apple frameworks to deliver a seamless and engaging user experience.
+Moments is a social media application developed for iOS, allowing users to capture and share photos in real-time. The most recent picture sent by your friends will be displayed on the homescreen widgets! Moments support Apple and Google sign in. The app integrates various Apple frameworks to deliver a seamless and engaging user experience.
 
 ## Features
 <p float="left">
