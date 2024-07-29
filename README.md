@@ -6,17 +6,22 @@ Contact zacharywtao@gmail.com to join the internal testing group on TestFlight!
 Moments is a social media application developed for iOS, allowing users to capture and share photos in real-time. The most recent picture sent by your friends will be displayed on the homescreen widgets! Moments support Apple and Google sign in. The app integrates various Apple frameworks to deliver a seamless and engaging user experience.
 
 ## Features
+
 <p float="left">
-  <img src="https://github.com/ZacharyTao/Moment---photo-sharing-app/assets/111452513/7ba82109-1452-42c4-8796-4715e772ff8c" width="200" />
-  <img src="https://github.com/ZacharyTao/Moment---photo-sharing-app/assets/111452513/bdcdcd82-21bc-453a-8b9a-a59323fa97fb" width="200" /> 
-  <img src="https://github.com/ZacharyTao/Moment---photo-sharing-app/assets/111452513/69f5c9f5-a0d6-43a1-bcc2-460c7dff9c4b" width="200" />
+  <img src="https://github.com/user-attachments/assets/8c0f5db8-0eb8-4a65-b84a-0ac437ce75db" width="150" />
+  <img src="https://github.com/user-attachments/assets/2da80246-7c14-44ce-a53c-b52297c09327" width="150" />
+  <img src="https://github.com/user-attachments/assets/c297d88c-f4b8-47e4-ab13-d2df3f93db88" width="150" />
+  <img src="https://github.com/user-attachments/assets/b8741cc0-70ae-4b37-b669-56a49d9445ef" width="150" />
+
 </p>
 
 <p float="left">
-  <img src="https://github.com/ZacharyTao/Moment---photo-sharing-app/assets/111452513/e499cf0b-bee4-434f-a2fe-79c59da8dccc" width="200" />
-  <img src="https://github.com/ZacharyTao/Moment---photo-sharing-app/assets/111452513/9dd2d355-564f-40c3-b576-45077b45f9e6" width="200" />
-  <img src="https://github.com/ZacharyTao/Moment---photo-sharing-app/assets/111452513/bd14e2f6-6788-41e9-ac4d-5bf6b0a93344" width="200" />
+  <img src="https://github.com/user-attachments/assets/99c10a06-61f3-4474-b50e-444aac37c1c3" width="150" />
+  <img src="https://github.com/user-attachments/assets/3e6877fa-e226-40f8-b4bb-e45873c411fb" width="150" /> 
+  <img src="https://github.com/user-attachments/assets/9bc48b0c-3060-414b-80ca-b47ffec8ec14" width="150" />
+  <img src="https://github.com/user-attachments/assets/61373b62-bc22-4e00-b628-facbc7afd52c" width="150" />
 </p>
+
 
 - **Real-time Photo Capturing and Sharing:** Capture and share moments instantly with your friends and followers.
 - **Home Screen Widget:** WidgetKit displays recent photos directly on the home screen for quick access.
