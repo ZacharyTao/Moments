@@ -51,13 +51,12 @@ struct Provider: TimelineProvider {
                     
                     let messageDocuments = try await Firestore.firestore().collection("Connections").document(connectionID).collection("messages")
                         .order(by: "timestamp", descending: true)
-                        .limit(to: 1)
+                        .limit(to: 3)
                         .getDocuments()
-                    if let latestMessage = try messageDocuments.documents.first?.data(as: Message.self) {
-                        latestMessages.append(latestMessage)
-                    }
+                    let messages = messageDocuments.documents.compactMap { try? $0.data(as: Message.self) }
+                    latestMessages.append(contentsOf: messages)
                 }
-                let latestMessagesSorted = latestMessages.sorted(by: { $0.timestamp ?? Date() > $1.timestamp ?? Date() })
+                let latestMessagesSorted = latestMessages.sorted(by: { $0.timestamp > $1.timestamp})
                 for message in latestMessagesSorted{
                     if message.senderId != user.uid{
                         completion(PreviewPhotoModel(picture: message.photoURL, caption: message.caption ?? ""))
@@ -213,7 +212,7 @@ struct Message: Identifiable, Codable{
     //message data
     var photoURL: URL?
     var caption: String?
-    var timestamp: Date?
+    var timestamp: Date
     var location: String?
 }
 
