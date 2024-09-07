@@ -29,7 +29,7 @@ class MainViewModel: ObservableObject{
     }
     
     init(){
-        fetchConnectionPreviews()
+        //fetchConnectionPreviews()
     }
     
     

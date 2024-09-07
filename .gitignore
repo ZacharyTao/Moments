@@ -3,7 +3,7 @@
 *.dSYM.zip
 *.dSYM
 .DS_Store
-
+teamId.swift
 # Swift Package Manager
 Packages/
 Package.pins

@@ -14,11 +14,12 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>com.googleusercontent.apps.728751348742-qg6em3ht7j6i3q6b18ulbq23mejhh08s</string>
+				<string>com.googleusercontent.apps.728751348742-tq1e8s2hpl07dnbrsuiq5cqv1tdi7e3a</string>
 			</array>
 		</dict>
 	</array>
 	<key>FirebaseAppDelegateProxyEnabled</key>
-	<true/>
+	<string>0</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>

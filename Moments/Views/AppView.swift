@@ -51,7 +51,6 @@ struct AppView: View {
                                 cameraModel.resetSession()
                                 cameraModel.session.stopRunning()
                             }
-
                 }
             
         }.tint(.black)

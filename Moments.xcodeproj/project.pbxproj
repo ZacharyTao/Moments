@@ -15,6 +15,8 @@
 		EF0DB6DF2BCC970A00BA0E0C /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0DB6DE2BCC970A00BA0E0C /* MainViewModel.swift */; };
 		EF0DB6E12BCC9C5800BA0E0C /* MainView-ConnectionPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0DB6E02BCC9C5800BA0E0C /* MainView-ConnectionPreview.swift */; };
 		EF0DB6E32BCCCD2800BA0E0C /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0DB6E22BCCCD2800BA0E0C /* AppView.swift */; };
+		EF12A2F32C581A4900F0F57B /* teamId.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF12A2F22C581A4900F0F57B /* teamId.swift */; };
+		EF12A2F42C581A6B00F0F57B /* teamId.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF12A2F22C581A4900F0F57B /* teamId.swift */; };
 		EF14CA9F2BF938A000A84200 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF14CA9E2BF938A000A84200 /* CommentView.swift */; };
 		EF14CAA12BF93ED300A84200 /* CommentDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF14CAA02BF93ED300A84200 /* CommentDetailView.swift */; };
 		EF45E5272BCF795200ED8237 /* PhotoMessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF45E5262BCF795200ED8237 /* PhotoMessageViewModel.swift */; };
@@ -110,6 +112,7 @@
 		EF0DB6DE2BCC970A00BA0E0C /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		EF0DB6E02BCC9C5800BA0E0C /* MainView-ConnectionPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainView-ConnectionPreview.swift"; sourceTree = "<group>"; };
 		EF0DB6E22BCCCD2800BA0E0C /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
+		EF12A2F22C581A4900F0F57B /* teamId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = teamId.swift; sourceTree = "<group>"; };
 		EF14CA9E2BF938A000A84200 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
 		EF14CAA02BF93ED300A84200 /* CommentDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentDetailView.swift; sourceTree = "<group>"; };
 		EF45E5262BCF795200ED8237 /* PhotoMessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoMessageViewModel.swift; sourceTree = "<group>"; };
@@ -318,6 +321,7 @@
 				EFE601A82BAF51D8004E816C /* Models */,
 				EFE601982BAF4576004E816C /* Assets.xcassets */,
 				EFE601DE2BB33459004E816C /* Info.plist */,
+				EF12A2F22C581A4900F0F57B /* teamId.swift */,
 			);
 			path = Moments;
 			sourceTree = "<group>";
@@ -517,6 +521,7 @@
 			files = (
 				EF872FD02C3231D10072AE93 /* MomentsWidgetBundle.swift in Sources */,
 				EF872FD22C3231D10072AE93 /* MomentsWidget.swift in Sources */,
+				EF12A2F42C581A6B00F0F57B /* teamId.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -535,6 +540,7 @@
 				EFE601FF2BBF4175004E816C /* ConnectingView.swift in Sources */,
 				EF0DB6D52BC8666300BA0E0C /* Connection.swift in Sources */,
 				EF4B14662BC4A3C0003DCFCF /* AuthenticationViewModel.swift in Sources */,
+				EF12A2F32C581A4900F0F57B /* teamId.swift in Sources */,
 				EFE601F32BB50FDD004E816C /* CameraView.swift in Sources */,
 				EFE601A52BAF461B004E816C /* PhotoMessageView.swift in Sources */,
 				EF0DB6E32BCCCD2800BA0E0C /* AppView.swift in Sources */,

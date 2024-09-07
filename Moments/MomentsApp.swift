@@ -22,9 +22,10 @@ class AppDelegate: NSObject, UIApplicationDelegate {
                         .LaunchOptionsKey: Any]?) -> Bool {
                             FirebaseApp.configure()
                             do{
-                                if let teamId = ProcessInfo.processInfo.environment["teamId"]{
-                                    try Auth.auth().useUserAccessGroup("\(teamId).edu.vanderbilt.zachtao.Moments")
-                                }
+//                                if let teamId = ProcessInfo.processInfo.environment["teamId"]{
+//                                    try Auth.auth().useUserAccessGroup("\(teamId).edu.vanderbilt.zachtao.Moments")
+//                                }
+                                try Auth.auth().useUserAccessGroup("\(teamId).edu.vanderbilt.zachtao.Moments")
                             }catch{
                                 print("firebase configure error: \(error.localizedDescription)")
                             }

@@ -24,7 +24,6 @@ struct MainView: View {
     @StateObject var mainViewModel = MainViewModel()
     @Binding var currentConnectionId: String
     
-    
     var body: some View {
         VStack{
             ScrollView{
@@ -66,7 +65,9 @@ struct MainView: View {
                     mainViewModel.fetchConnectionPreviews()
                 }
                 .redacted(when: mainViewModel.isLoading)
-            
+        }
+        .onAppear{
+            mainViewModel.fetchConnectionPreviews()
         }
         .navigationBarTitle(Text(""), displayMode: .inline)
         .padding()

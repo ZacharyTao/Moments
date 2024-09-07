@@ -57,11 +57,19 @@ struct Provider: TimelineProvider {
                         latestMessages.append(latestMessage)
                     }
                 }
-                if let latestMessage = latestMessages.sorted(by: { $0.timestamp ?? Date() > $1.timestamp ?? Date() }).first {
-                    completion(PreviewPhotoModel(picture: latestMessage.photoURL, caption: latestMessage.caption ?? ""))
-                } else {
-                    completion(PreviewPhotoModel(error: "No messages found"))
+                let latestMessagesSorted = latestMessages.sorted(by: { $0.timestamp ?? Date() > $1.timestamp ?? Date() })
+                for message in latestMessagesSorted{
+                    if message.senderId != user.uid{
+                        completion(PreviewPhotoModel(picture: message.photoURL, caption: message.caption ?? ""))
+                        return
+                    }
                 }
+                completion(PreviewPhotoModel(error: "No messages found"))
+//                if let latestMessage = latestMessages.sorted(by: { $0.timestamp ?? Date() > $1.timestamp ?? Date() }).first {
+//                    completion(PreviewPhotoModel(picture: latestMessage.photoURL, caption: latestMessage.caption ?? ""))
+//                } else {
+//                    completion(PreviewPhotoModel(error: "No messages found"))
+//                }
             } catch {
                 print("Error: \(error.localizedDescription)")
                 completion(PreviewPhotoModel(error: "Failed to fetch messages"))
@@ -164,9 +172,10 @@ struct MomentsWidget: Widget {
     init(){
         FirebaseApp.configure()
         do{
-            if let teamId = ProcessInfo.processInfo.environment["teamId"]{
-                try Auth.auth().useUserAccessGroup("\(teamId).edu.vanderbilt.zachtao.Moments")
-            }
+//            if let teamId = ProcessInfo.processInfo.environment["teamId"]{
+//                try Auth.auth().useUserAccessGroup("\(teamId).edu.vanderbilt.zachtao.Moments")
+//            }
+            try Auth.auth().useUserAccessGroup("\(teamId).edu.vanderbilt.zachtao.Moments")
         }catch{
             print("firebase configure error: \(error.localizedDescription)")
         }
