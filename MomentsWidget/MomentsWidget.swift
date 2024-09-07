@@ -76,11 +76,7 @@ struct Provider: TimelineProvider {
             }
         }
     }
-
 }
-
-
-
 
 struct SimpleEntry: TimelineEntry {
     let date: Date
