@@ -21,9 +21,7 @@ class UserDataManager: ObservableObject{
     @Published var momentUser = MomentsUser(userName: "")
     @Published private var user: User?
     @Published var connections : [Connection] = []
-    
 
-    
     private var userFirebaseDocumentId: String?
     private var db = Firestore.firestore()
     private let storage = Storage.storage()

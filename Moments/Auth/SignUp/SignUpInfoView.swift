@@ -41,31 +41,7 @@ struct SignUpInfoView: View {
                     .textInputAutocapitalization(.never)
                     .padding(.horizontal, 15)
                     .overlay(RoundedRectangle(cornerRadius: 10).stroke(.gray).frame(height: 40))
-                    .padding()
-//                    
-//                        LimitedTextField(
-//                            config: .init(
-//                                limit: 12,
-//                                tint: .secondary,
-//                                autoResizes: true,
-//                                allowsExcessTyping: false,
-//                                progressConfig: .init(
-//                                    showsRing: true,
-//                                    showsText: false
-//                                ),
-//                                borderConfig: .init(
-//                                    radius: 10
-//                                )
-//                            ),
-//                            hint: "Type in your user name",
-//                            value: $infoViewModel.momentUser.userName
-//                        )
-//                        .autocorrectionDisabled()
-//                        .textInputAutocapitalization(.never)
-//                        .padding(.horizontal, 15)
-//                        .padding(.vertical, 20)
-//                        
-//                        
+                    .padding()                
 
                     Spacer()
                     

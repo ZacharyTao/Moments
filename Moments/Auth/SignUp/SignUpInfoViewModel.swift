@@ -15,15 +15,13 @@ import FirebaseMessaging
 import AVKit
 import SwiftUI
 
-@MainActor
 class SignUpInfoViewModel: ObservableObject{
     @Published var imageData: Data?
     @Published var momentUser = MomentsUser(userName: "")
     @Published private var user: User?
     private var db = Firestore.firestore()
     private var cancellables = Set<AnyCancellable>()
-    private var FCMtoken : String?
-    
+
     init() {
         registerAuthStateHandler()
         $user
@@ -32,17 +30,6 @@ class SignUpInfoViewModel: ObservableObject{
                 self.momentUser.userId = user.uid
             }
             .store(in: &cancellables)
-    }
-    
-    private func getFCMtoken(){
-        Messaging.messaging().token{token, error in
-            if let error = error{
-                print("Error fetching FCM registration token: \(error.localizedDescription)")
-            }else if let token = token{
-                self.FCMtoken = token
-                self.momentUser.FCMtoken = token
-            }
-        }
     }
     
     private var authStateHandler: AuthStateDidChangeListenerHandle?
@@ -89,7 +76,6 @@ class SignUpInfoViewModel: ObservableObject{
             return false
         }
 
-    
     func storeProfilePicture() async {
       guard let imageId = momentUser.userId else { return }
       let imageReference = Storage.storage().reference(withPath: "userProfilePictures/\(imageId).png")
@@ -108,6 +94,5 @@ class SignUpInfoViewModel: ObservableObject{
         print("An error ocurred while uploading: \(error.localizedDescription)")
       }
     }
-    
 }
 

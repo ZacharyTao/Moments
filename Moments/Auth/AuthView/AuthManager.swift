@@ -2,136 +2,62 @@
 // AuthenticationViewModel.swift
 //
 
-
-import Foundation
-import FirebaseAuth
-
-// For Sign in with Apple
 import AuthenticationServices
 import CryptoKit
 import FirebaseFirestore
-import Combine
 import FirebaseAuth
 import FirebaseFirestoreSwift
 import FirebaseStorage
 import GoogleSignIn
 import GoogleSignInSwift
 import FirebaseCore
-
-
+import SwiftUI
 
 enum AuthenticationState {
     case unauthenticated
-    case authenticating
     case authenticated
-    case checking    
 }
 
-enum AuthenticationFlow {
-    case login
-    case signUp
-}
+@Observable
+class AuthManager {
+    var authenticationState: AuthenticationState = .unauthenticated
+    var errorMessage = ""
+    var user: User?
+    var isFirstTimeSignIn = false
 
-@MainActor
-class AuthenticationViewModel: ObservableObject {
-    @Published var email = ""
-    @Published var password = ""
-    @Published var confirmPassword = ""
-    
-    @Published var flow: AuthenticationFlow = .login
-    
-    @Published var isValid = false
-    @Published var authenticationState: AuthenticationState = .unauthenticated
-    @Published var errorMessage = ""
-    @Published var user: User?
-    @Published var displayName = ""
-    
-    
-
-    
     private var currentNonce: String?
-    
+
     init() {
-        initializeAuthenticationState()
         registerAuthStateHandler()
         verifySignInWithAppleAuthenticationState()
-        
-        $flow
-            .combineLatest($email, $password, $confirmPassword)
-            .map { flow, email, password, confirmPassword in
-                flow == .login
-                ? !(email.isEmpty || password.isEmpty)
-                : !(email.isEmpty || password.isEmpty || confirmPassword.isEmpty)
-            }
-            .assign(to: &$isValid)
     }
-    
-    func initializeAuthenticationState() {
-        authenticationState = .checking
-        let isUserAuthenticated = Auth.auth().currentUser != nil
-        
-        user = Auth.auth().currentUser
-        authenticationState = isUserAuthenticated ? .authenticated : .unauthenticated
-    }
-    
+
     private var authStateHandler: AuthStateDidChangeListenerHandle?
-    
+
     func registerAuthStateHandler() {
         if authStateHandler == nil {
             authStateHandler = Auth.auth().addStateDidChangeListener { auth, user in
                 self.user = user
                 self.authenticationState = user == nil ? .unauthenticated : .authenticated
-
             }
         }
     }
-    
-    func switchFlow() {
-        flow = flow == .login ? .signUp : .login
-        errorMessage = ""
-    }
-    
-    func reset() {
-        flow = .login
-        email = ""
-        password = ""
-        confirmPassword = ""
-    }
-    
-    
-}
 
-// MARK: - Email and Password Authentication
-
-extension AuthenticationViewModel {
-    func signInWithEmailPassword() async -> Bool {
-        authenticationState = .authenticating
-        do {
-            try await Auth.auth().signIn(withEmail: self.email, password: self.password)
+    func isUserFirstTimeLogIn() -> Bool {
+        let newUserRref = Auth.auth().currentUser?.metadata
+        /*Check if the automatic creation time of the user is equal to the last
+         sign in time (Which will be the first sign in time if it is indeed
+         their first sign in)*/
+        if newUserRref?.creationDate?.timeIntervalSince1970 == newUserRref?.lastSignInDate?.timeIntervalSince1970{
+            print("This is user first time login")
+            print("Creation time: \(String(describing: newUserRref?.creationDate))")
+            print("Last sign in time: \(String(describing: newUserRref?.lastSignInDate))")
             return true
-        }
-        catch  {
-            print(error)
-            errorMessage = error.localizedDescription
-            authenticationState = .unauthenticated
+        } else {
             return false
         }
     }
-    
-    func signUpWithEmailPassword() async -> Bool {
-        authenticationState = .authenticating
-        do  {
-            try await Auth.auth().createUser(withEmail: email, password: password)
-            return true
-        }
-        catch {
-            print(error)
-            errorMessage = error.localizedDescription
-            authenticationState = .unauthenticated
-            return false
-        }
-    }
-    
+
     func signOut() {
         do {
             try Auth.auth().signOut()
@@ -141,7 +67,7 @@ extension AuthenticationViewModel {
             errorMessage = error.localizedDescription
         }
     }
-    
+
     func deleteAccount() async -> Bool {
         do {
             try await user?.delete()
@@ -153,21 +79,18 @@ extension AuthenticationViewModel {
             return false
         }
     }
-    
-    
 }
 
 // MARK: Sign in with Apple
+extension AuthManager {
 
-extension AuthenticationViewModel {
-    
     func handleSignInWithAppleRequest(_ request: ASAuthorizationAppleIDRequest) {
         request.requestedScopes = [.fullName, .email]
         let nonce = randomNonceString()
         currentNonce = nonce
         request.nonce = sha256(nonce)
     }
-    
+
     func handleSignInWithAppleCompletion(_ result: Result<ASAuthorization, Error>) {
         if case .failure(let failure) = result {
             errorMessage = failure.localizedDescription
@@ -185,15 +108,13 @@ extension AuthenticationViewModel {
                     print("Unable to serialise token string from data: \(appleIDToken.debugDescription)")
                     return
                 }
-                
+
                 let credential = OAuthProvider.credential(withProviderID: "apple.com",
                                                           idToken: idTokenString,
                                                           rawNonce: nonce)
                 Task {
                     do {
                         try await Auth.auth().signIn(with: credential)
-                        //await updateDisplayName(for: result.user, with: appleIDCredential)
-                        //await self.checkIfUserExistsAndProceed(user: user)
                     }
                     catch {
                         print("Error authenticating: \(error.localizedDescription)")
@@ -202,22 +123,7 @@ extension AuthenticationViewModel {
             }
         }
     }
-    
-    private func checkIfUserExistsAndProceed(user: User?) async -> Bool {
-        if let user {
-            let userRef = Firestore.firestore().collection("Users").whereField("userId", isEqualTo: user.uid)
-            let documents = try? await userRef.getDocuments()
-            if let documents = documents {
-                return true
-            } else {
-                return false
-            }
-        }else{
-            return false
-        }
-    }
-    
-    
+
     func verifySignInWithAppleAuthenticationState() {
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let providerData = Auth.auth().currentUser?.providerData
@@ -240,15 +146,7 @@ extension AuthenticationViewModel {
             }
         }
     }
-    
-}
 
-extension ASAuthorizationAppleIDCredential {
-    func displayName() -> String {
-        return [self.fullName?.givenName, self.fullName?.familyName]
-            .compactMap( {$0})
-            .joined(separator: " ")
-    }
 }
 
 // Adapted from https://auth0.com/docs/api-auth/tutorials/nonce#generate-a-cryptographically-random-nonce
@@ -258,7 +156,7 @@ private func randomNonceString(length: Int = 32) -> String {
     Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
     var result = ""
     var remainingLength = length
-    
+
     while remainingLength > 0 {
         let randoms: [UInt8] = (0 ..< 16).map { _ in
             var random: UInt8 = 0
@@ -270,19 +168,19 @@ private func randomNonceString(length: Int = 32) -> String {
             }
             return random
         }
-        
+
         randoms.forEach { random in
             if remainingLength == 0 {
                 return
             }
-            
+
             if random < charset.count {
                 result.append(charset[Int(random)])
                 remainingLength -= 1
             }
         }
     }
-    
+
     return result
 }
 
@@ -292,47 +190,93 @@ private func sha256(_ input: String) -> String {
     let hashString = hashedData.compactMap {
         String(format: "%02x", $0)
     }.joined()
-    
+
     return hashString
 }
 
+// MARK: Sign in with Google
+extension AuthManager {
+    func signInWithGoogle() async -> Bool {
+        guard let clientID = FirebaseApp.app()?.options.clientID else {
+            fatalError("No client ID found in Firebase configuration")
+        }
+        let config = GIDConfiguration(clientID: clientID)
+        GIDSignIn.sharedInstance.configuration = config
 
-extension AuthenticationViewModel {
-  func signInWithGoogle() async -> Bool {
-    guard let clientID = FirebaseApp.app()?.options.clientID else {
-      fatalError("No client ID found in Firebase configuration")
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let window = windowScene.windows.first,
+              let rootViewController = window.rootViewController else {
+            print("There is no root view controller!")
+            return false
+        }
+
+        do {
+            let userAuthentication = try await GIDSignIn.sharedInstance.signIn(withPresenting: rootViewController)
+
+            let user = userAuthentication.user
+            guard let idToken = user.idToken else { throw AuthenticationError.tokenError(message: "ID token missing") }
+            let accessToken = user.accessToken
+
+            let credential = GoogleAuthProvider.credential(withIDToken: idToken.tokenString,
+                                                           accessToken: accessToken.tokenString)
+
+            let result = try await Auth.auth().signIn(with: credential)
+            if let isNewUser = result.additionalUserInfo?.isNewUser, isNewUser {
+                isFirstTimeSignIn = true
+            }
+            let firebaseUser = result.user
+            print("User \(firebaseUser.uid) signed in with email \(firebaseUser.email ?? "unknown")")
+            return true
+        }
+        catch {
+            print(error.localizedDescription)
+            if error.localizedDescription != "The user canceled the sign-in flow."{
+                self.errorMessage = error.localizedDescription
+            }
+            return false
+        }
     }
-    let config = GIDConfiguration(clientID: clientID)
-    GIDSignIn.sharedInstance.configuration = config
 
-    guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-          let window = windowScene.windows.first,
-          let rootViewController = window.rootViewController else {
-      print("There is no root view controller!")
-      return false
+    func reauthenticateSignInWithGoogle() async -> Bool{
+
+        guard let clientID = FirebaseApp.app()?.options.clientID else {
+            fatalError("No client ID found in Firebase configuration")
+        }
+
+        let config = GIDConfiguration(clientID: clientID)
+        GIDSignIn.sharedInstance.configuration = config
+
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let window = windowScene.windows.first,
+              let rootViewController = window.rootViewController else {
+            print("There is no root view controller!")
+            return false
+        }
+
+        do {
+            let userAuthentication = try await GIDSignIn.sharedInstance.signIn(withPresenting: rootViewController)
+
+            let user = userAuthentication.user
+            guard let idToken = user.idToken else { throw AuthenticationError.tokenError(message: "ID token missing") }
+            let accessToken = user.accessToken
+
+            let credential = GoogleAuthProvider.credential(withIDToken: idToken.tokenString,
+                                                           accessToken: accessToken.tokenString)
+
+            let result = try await Auth.auth().currentUser?.reauthenticate(with: credential)
+
+            let firebaseUser = result?.user
+            print("User \(String(describing: firebaseUser?.uid)) signed in with email \(firebaseUser?.email ?? "unknown")")
+            return true
+        }
+        catch {
+            print(error.localizedDescription)
+            if error.localizedDescription != "The user canceled the sign-in flow."{
+                self.errorMessage = error.localizedDescription
+            }
+            return false
+        }
     }
-
-      do {
-        let userAuthentication = try await GIDSignIn.sharedInstance.signIn(withPresenting: rootViewController)
-
-        let user = userAuthentication.user
-        guard let idToken = user.idToken else { throw AuthenticationError.tokenError(message: "ID token missing") }
-        let accessToken = user.accessToken
-
-        let credential = GoogleAuthProvider.credential(withIDToken: idToken.tokenString,
-                                                       accessToken: accessToken.tokenString)
-
-        let result = try await Auth.auth().signIn(with: credential)
-        let firebaseUser = result.user
-        print("User \(firebaseUser.uid) signed in with email \(firebaseUser.email ?? "unknown")")
-        return true
-      }
-      catch {
-        print(error.localizedDescription)
-        self.errorMessage = error.localizedDescription
-        return false
-      }
-  }
 }
 
 enum AuthenticationError: Error {

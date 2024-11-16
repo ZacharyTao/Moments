@@ -11,7 +11,7 @@ import Kingfisher
 
 struct UserProfileView: View{
     
-    @EnvironmentObject var viewModel: AuthenticationViewModel
+    @Environment(AuthManager.self) var authManager
     @EnvironmentObject var userDataManager: UserDataManager
     
     @Binding var path : NavigationPath
@@ -124,9 +124,7 @@ struct UserProfileView: View{
     
     var signOutButton: some View{
         Button{
-            viewModel.authenticationState = .unauthenticated
-            viewModel.signOut()
-            
+            authManager.signOut()
         }label: {
             Text("Sign out")
                 .fontWeight(.semibold)
@@ -170,7 +168,7 @@ struct UserProfileView: View{
     private func deleteAccount() {
         Task {
             do{
-                if await viewModel.deleteAccount() == true {
+                if await authManager.deleteAccount() == true {
                     if let userId = userDataManager.momentUser.id{
                         try await userDataManager.deleteUserFromFirestore(userId: userId)
                         try await userDataManager.deleteUserProfilePictureFromStorage(userId: userId)
@@ -193,7 +191,7 @@ struct UserProfileView: View{
         var body: some View{
             NavigationStack{
                 UserProfileView(path: $path)
-                    .environmentObject(AuthenticationViewModel())
+                    .environment(AuthManager())
                     .environmentObject(UserDataManager())
             }
         }

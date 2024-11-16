@@ -10,7 +10,6 @@ import SwiftUI
 struct AppView: View {
     @StateObject var userDataManager = UserDataManager()
     @StateObject var cameraModel = CameraModel()
-    @EnvironmentObject var authenticationViewModel : AuthenticationViewModel
     @State var path = NavigationPath()
     @State var currentConnectionId = ""
     
@@ -32,7 +31,6 @@ struct AppView: View {
                             .environmentObject(userDataManager)
                     case .userProfileView:
                         UserProfileView(path: $path)
-                            .environmentObject(authenticationViewModel)
                             .environmentObject(userDataManager)
                     case .editProfileView:
                         EditProfileView(path: $path)

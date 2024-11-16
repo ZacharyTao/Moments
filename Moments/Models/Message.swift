@@ -9,14 +9,12 @@ import Foundation
 import FirebaseFirestore
 struct Message: Identifiable, Codable, Hashable{
     @DocumentID var id : String?
-    
     let senderId: String
-    //message data
+
     var photoURL: URL?
     var caption: String?
     var timestamp: Date?
     var location: String?
-    
 }
 
 struct MessageComment: Identifiable, Codable{
