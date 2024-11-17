@@ -21,19 +21,15 @@ struct PhotoChatView: View {
     
     var body: some View {
         ZoomContainer{
-           // PageView{
-                mainPhotoMessageScrollView
-                  
-                //connectionDetail
-           // }
-            .ignoresSafeArea(edges: .bottom)
-            .toolbar(content: myToolBarContent)
-            .sheet(isPresented: $addAnniversarySheet){
-                NewAnniSheetView()
-            }
-            .sheet(isPresented: $showMoodSelectorSheet){
-                MoodChoosingView()
-            }
+            mainPhotoMessageScrollView
+                .ignoresSafeArea(edges: .bottom)
+                .toolbar(content: myToolBarContent)
+                .sheet(isPresented: $addAnniversarySheet){
+                    NewAnniSheetView()
+                }
+                .sheet(isPresented: $showMoodSelectorSheet){
+                    MoodChoosingView()
+                }
         }.navigationTitle("")
     }
     
@@ -61,8 +57,8 @@ struct PhotoChatView: View {
     var mainPhotoMessageScrollView: some View{
         ScrollView(showsIndicators: false){
             VStack(spacing: 5){
-//                moodDisplayView()
-//                    .padding(.vertical)
+                //                moodDisplayView()
+                //                    .padding(.vertical)
                 LazyVStack{
                     ForEach(photosChatViewModel.messages){message in
                         PhotoMessageView(photoMessageViewModel: PhotoMessageViewModel(message: message, connectionId: photosChatViewModel.connectionID), selectedMessage: $selectedMessage)
@@ -150,9 +146,9 @@ struct PhotoChatView: View {
     @ToolbarContentBuilder
     func myToolBarContent() -> some ToolbarContent {
         ToolbarItem(placement: .principal){
-                Text(photosChatViewModel.connectUser.userName)
-                    .font(.subheadline)
-                    .fontWeight(.medium)
+            Text(photosChatViewModel.connectUser.userName)
+                .font(.subheadline)
+                .fontWeight(.medium)
         }
         
         ToolbarItem(placement: .topBarTrailing){

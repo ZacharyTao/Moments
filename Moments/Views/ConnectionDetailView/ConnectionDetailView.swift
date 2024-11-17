@@ -137,5 +137,5 @@ struct ConnectionDetailView: View {
 #Preview {
     NavigationStack{
         ConnectionDetailView(connectionDetailViewModel: ConnectionDetailViewModel(connectionID: "EiS0k2IJ94qdBccPBk3k"))
-    }.tint(.black)
+    }
 }

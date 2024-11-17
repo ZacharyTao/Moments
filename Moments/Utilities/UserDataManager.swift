@@ -86,7 +86,6 @@ class UserDataManager: ObservableObject{
             }
     }
     
-    
     func saveMomentUserInfo() async{
         await storeProfileImage()
         do {
@@ -122,7 +121,6 @@ class UserDataManager: ObservableObject{
         }
     }
     
-    @MainActor
     func loadProfileImage(maxRetries: Int = 5, currentAttempt: Int = 1) {
         guard let imageId = user?.uid else { return }
         let maxSize: Int64 = 4 * 1024 * 1024
@@ -211,10 +209,4 @@ class UserDataManager: ObservableObject{
         }
         
     }
-    
-    private func pushNotification(recieverToken: String){
-        
-    }
-    
-    
 }

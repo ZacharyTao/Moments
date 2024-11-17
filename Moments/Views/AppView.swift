@@ -51,7 +51,7 @@ struct AppView: View {
                             }
                 }
             
-        }.tint(.black)
+        }
     }
 }
 

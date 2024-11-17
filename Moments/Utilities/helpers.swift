@@ -1,14 +1,12 @@
 //
 //  helpers.swift
-//  MomentsV2
+//  Moments
 //
 //  Created by Zachary Tao on 3/30/24.
 //
 
 import Foundation
 import SwiftUI
-
-
 
 struct ShortCodeGenerator {
     private static let base62chars = [Character]("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz")
@@ -53,21 +51,7 @@ extension Color {
     static var mainColor1 = Color(hex: "#FFFFFF")
     static var second = Color(hex: "#FF5116") //orange
     static var first = Color(hex: "#F6F6F6") //white sand
-    static var accent = Color(hex: "#FFBA00")
-
 }
-
-
-extension View {
-    func withoutAnimation(action: @escaping () -> Void) {
-        var transaction = Transaction()
-        transaction.disablesAnimations = true
-        withTransaction(transaction) {
-            action()
-        }
-    }
-}
-
 
 import UIKit
 import AVFoundation
@@ -101,8 +85,6 @@ public extension UIImage {
         return resized
     }
 }
-
-
 
 func dateDisplayFormatter(_ date: Date?) -> String {
     guard let date = date else { return "Unknown Time" }
@@ -216,9 +198,6 @@ struct ColorOptions: Codable {
     }
 }
 
-
-
-
 struct AnniSymbols {
     static func randomName() -> String {
         if let random = symbolNames.randomElement() {
@@ -283,24 +262,4 @@ struct AnniSymbols {
         "🧧", // Red Envelope
         "🧨" // Fireworks
     ]
-}
-
-struct PageView<Content: View>: View {
-    let content: () -> Content
-
-    var body: some View {
-        GeometryReader { geo in
-            ScrollView(.horizontal) {
-                TabView {
-                    content()
-                }
-                .frame(width: geo.size.width, height: geo.size.height)
-                .tabViewStyle(PageTabViewStyle())
-            }
-        }
-    }
-
-    init(@ViewBuilder content: @escaping () -> Content) {
-        self.content = content
-    }
 }

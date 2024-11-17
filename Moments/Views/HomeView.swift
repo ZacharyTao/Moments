@@ -8,19 +8,10 @@
 import SwiftUI
 
 struct HomeView: View {
-    @StateObject var infoViewModel = SignUpInfoViewModel()
-
-    
-    enum homeViewLogic{
-        case appView
-        case signUpInfo
-        case progress
-    }
-    
     @State var viewLogic: homeViewLogic = .progress
-    
+    @Environment(AuthManager.self) var authManager
+
     var body: some View {
-            
             Group{
                 switch viewLogic {
                 case .progress:
@@ -29,14 +20,20 @@ struct HomeView: View {
                     AppView()
                 case .signUpInfo:
                     SignUpInfoView(viewLogic: $viewLogic)
-                        .environmentObject(infoViewModel)
                 }
             }
-            .task{
-                let result = await infoViewModel.checkIfMomentsUserExists()
-                viewLogic = result ? .appView : .signUpInfo
+            .onAppear {
+                let result = authManager.isUserFirstTimeLogIn()
+                viewLogic = result ? .signUpInfo : .appView
             }
     }
+
+    enum homeViewLogic{
+        case appView
+        case signUpInfo
+        case progress
+    }
+
 }
 
 #Preview {

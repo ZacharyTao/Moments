@@ -18,7 +18,6 @@ struct MomentsUser: Codable, Identifiable {
     var profilePictureURL: URL?
     
     var uniqueID: String = ShortCodeGenerator.getCode(length: 6)
-    
     var FCMtoken: String?
 }
 

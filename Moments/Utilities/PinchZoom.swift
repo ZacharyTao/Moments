@@ -196,7 +196,3 @@ fileprivate struct Config: Equatable {
     var dragOffset: CGSize = .zero
     var hidesSourceView: Bool = false
 }
-
-//#Preview {
-//    ContentView()
-//}
