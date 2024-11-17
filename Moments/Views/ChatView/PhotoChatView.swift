@@ -10,16 +10,16 @@ import Kingfisher
 
 
 struct PhotoChatView: View {
-    
+
     @StateObject var photosChatViewModel : PhotoChatViewModel
     @StateObject var connectionDetailViewModel : ConnectionDetailViewModel
-    
+
     @Binding var path: NavigationPath
 
     @State var addAnniversarySheet = false
     @State var showMoodSelectorSheet = false
     @State var selectedMessage: Message?
-    
+
     var body: some View {
         ZoomContainer {
             mainPhotoMessageScrollView
@@ -31,9 +31,12 @@ struct PhotoChatView: View {
                 .sheet(isPresented: $showMoodSelectorSheet){
                     MoodChoosingView()
                 }
-        }.navigationTitle("")
+        }
+        .navigationTitle("")
+        .redacted(when: photosChatViewModel.isLoading)
+
     }
-    
+
     var connectionDetail: some View{
         VStack{
             moodDisplayView()
@@ -54,7 +57,7 @@ struct PhotoChatView: View {
             }
         }
     }
-    
+
     var mainPhotoMessageScrollView: some View{
         ScrollView(showsIndicators: false){
             VStack(spacing: 5){
@@ -90,12 +93,12 @@ struct PhotoChatView: View {
         }
         .redacted(when: photosChatViewModel.isLoading)
     }
-    
+
     func moodDisplayView() -> some View{
         HStack{
             VStack(spacing: 2){
                 profileImage(url: connectionDetailViewModel.user1.profilePictureURL)
-                
+
                 Text(connectionDetailViewModel.user1.userName)
                     .font(.subheadline)
                     .fontWeight(.medium)
@@ -115,13 +118,13 @@ struct PhotoChatView: View {
                         }
                 }
             }
-            
+
             VStack(spacing: 2){
                 profileImage(url: connectionDetailViewModel.user2.profilePictureURL)
                 Text(connectionDetailViewModel.user2.userName)
                     .font(.subheadline)
                     .fontWeight(.medium)
-                
+
                 HStack{
                     Text("😴")
                     Text("sleep")
@@ -134,9 +137,9 @@ struct PhotoChatView: View {
                             .stroke(.secondary, lineWidth: 1)
                     }
             }
-            
+
         }.padding(.horizontal)
-        
+
     }
 
     @ToolbarContentBuilder
@@ -146,7 +149,7 @@ struct PhotoChatView: View {
                 .font(.subheadline)
                 .fontWeight(.medium)
         }
-        
+
         ToolbarItem(placement: .topBarTrailing){
             Button{
                 path.append(CurrentView.cameraView)
@@ -159,7 +162,7 @@ struct PhotoChatView: View {
             }
         }
     }
-    
+
     func profileImage(url: URL?) -> some View{
         KFImage(url)
             .placeholder{Image(systemName: "person.fill")}

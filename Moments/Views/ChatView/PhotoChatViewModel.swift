@@ -23,7 +23,7 @@ class PhotoChatViewModel: ObservableObject{
     @Published var connectionID: String
     @Published var errorMessage: String?
     @Published var messageCount = 0
-    @Published var isLoading = false
+    @Published var isLoading = true
     @Published var latestMessage: Message = Message(senderId: "Error")
 
     private var lastDocument: DocumentSnapshot? = nil
@@ -37,6 +37,7 @@ class PhotoChatViewModel: ObservableObject{
         self.connection = Connection()
         fetchConnection()
         fetchMessageCount()
+        isLoading = false
     }
 
     public func fetchMessageCount() {
@@ -84,8 +85,6 @@ class PhotoChatViewModel: ObservableObject{
                     messages.append(contentsOf: newMessages)
                     self.lastDocument = documents.documents.last
                 }
-                isLoading = false
-
             }catch{
                 print("Message fetch error")
             }
