@@ -64,13 +64,13 @@ struct PhotoChatView: View {
                 LazyVStack{
                     ForEach(photosChatViewModel.messages){message in
                         PhotoMessageView(photoMessageViewModel: PhotoMessageViewModel(message: message, connectionId: photosChatViewModel.connectionID), selectedMessage: $selectedMessage)
-                            .onAppear{
-                                if message.id == photosChatViewModel.messages.last?.id,
-                                   photosChatViewModel.messages.count < photosChatViewModel.messageCount
-                                {
-                                    photosChatViewModel.fetchMessagePaginationVersion()
-                                }
-                            }
+//                            .onAppear{
+//                                if message.id == photosChatViewModel.messages.last?.id,
+//                                   photosChatViewModel.messages.count < photosChatViewModel.messageCount
+//                                {
+//                                    photosChatViewModel.fetchMessagePaginationVersion()
+//                                }
+//                            }
                         Divider()
                     }
                 }.padding(3)

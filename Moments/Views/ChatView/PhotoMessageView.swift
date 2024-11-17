@@ -23,7 +23,6 @@ struct PhotoMessageView: View {
                         KFImage(photoMessageViewModel.message.photoURL)
                             .cacheOriginalImage()
                             .fade(duration: 0.3)
-                            .diskCacheExpiration(.days(7))
                             .resizable()
                             .scaledToFill()
                             .frame(width: size.width, height: size.height)
@@ -75,13 +74,13 @@ struct PhotoMessageView: View {
     var headerView: some View{
         HStack(spacing: 1){
             KFImage(photoMessageViewModel.messageSender.profilePictureURL)
+                .setProcessor(DownsamplingImageProcessor(size: CGSize(width: 200, height: 200)))
                 .placeholder{
                     Image(systemName: "person.fill")
                         .clipShape(Circle())
                         .frame(width: 50, height: 50)
                 }
                 .diskCacheExpiration(.days(7))
-                .fade(duration: 0.3)
                 .cacheOriginalImage()
                 .resizable()
                 .scaledToFit()

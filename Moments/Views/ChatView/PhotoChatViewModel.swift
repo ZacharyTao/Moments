@@ -35,8 +35,11 @@ class PhotoChatViewModel: ObservableObject{
     init(connectionID: String) {
         self.connectionID = connectionID
         self.connection = Connection()
+
         fetchConnection()
         fetchMessageCount()
+
+        // fetchMessages()
         isLoading = false
     }
 
@@ -56,8 +59,22 @@ class PhotoChatViewModel: ObservableObject{
         isLoading = true
         lastDocument = nil
         messages = []
-        fetchMessagePaginationVersion()
+        fetchMessages()
+        // fetchMessagePaginationVersion()
         isLoading = false
+    }
+
+    func fetchMessages() {
+        Task {
+            do {
+                let documents = try await db.collection("Connections").document(connectionID).collection("messages")
+                    .order(by: "timestamp", descending: true)
+                    .getDocuments()
+                self.messages = documents.documents.compactMap { document in
+                    return try? document.data(as: Message.self)
+                }
+            }
+        }
     }
 
     func fetchMessagePaginationVersion(){
@@ -88,46 +105,6 @@ class PhotoChatViewModel: ObservableObject{
             }catch{
                 print("Message fetch error")
             }
-        }
-    }
-
-    func fetchFirstMessageRealTime(){
-        if listenerRegistration == nil {
-            listenerRegistration = db.collection("Connections").document(connectionID).collection("messages").order(by: "timestamp", descending: true)
-                .limit(to: 1)
-                .addSnapshotListener { [weak self] (querySnapshot, error) in
-
-                    guard let documents = querySnapshot?.documents else {
-                        self?.errorMessage = "No documents in collection"
-                        return
-                    }
-                    let newMessages = documents.compactMap { queryDocumentSnapshot in
-                        let result = Result { try queryDocumentSnapshot.data(as: Message.self) }
-
-                        switch result {
-                        case .success(let message):
-                            self?.errorMessage = nil
-                            return message
-                        case .failure(let error):
-                            // A value could not be initialized from the DocumentSnapshot.
-                            switch error {
-                            case DecodingError.typeMismatch(_, let context):
-                                self?.errorMessage = "\(error.localizedDescription): \(context.debugDescription)"
-                            case DecodingError.valueNotFound(_, let context):
-                                self?.errorMessage = "\(error.localizedDescription): \(context.debugDescription)"
-                            case DecodingError.keyNotFound(_, let context):
-                                self?.errorMessage = "\(error.localizedDescription): \(context.debugDescription)"
-                            case DecodingError.dataCorrupted(let key):
-                                self?.errorMessage = "\(error.localizedDescription): \(key)"
-                            default:
-                                self?.errorMessage = "Error decoding document: \(error.localizedDescription)"
-                            }
-                            return nil
-                        }
-                    }
-                    self?.latestMessage = newMessages[0]
-                }
-
         }
     }
 
