@@ -138,23 +138,13 @@ struct UserProfileView: View{
     var photoView: some View{
         Group{
             KFImage(userDataManager.momentUser.profilePictureURL)
+                .cacheOriginalImage()
+                .fade(duration: 0.3)
+                .diskCacheExpiration(.days(7))
                 .resizable()
                 .scaledToFill()
                 .frame(width: 175, height: 175 )
                 .clipShape(Circle())
-//            if let selectedImageData = profileViewModel.imageData,
-//               let uiImage = UIImage(data: selectedImageData) {
-//                Image(uiImage: uiImage)
-//                    .resizable()
-//                    .scaledToFill()
-//                    .frame(width: 175, height: 175 )
-//                    .clipShape(Circle())
-//            }else{
-//                ProgressView()
-//                    .aspectRatio(contentMode: .fit)
-//                    .frame(width: 175, height: 175 ).fontWeight(.ultraLight)
-//                
-//            }
         }
         .overlay{
             Circle().stroke(.black, lineWidth: 4)

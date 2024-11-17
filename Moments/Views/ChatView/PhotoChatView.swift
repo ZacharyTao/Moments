@@ -173,17 +173,3 @@ struct PhotoChatView: View {
             .padding(.horizontal)
     }
 }
-
-
-//
-//#Preview {
-//    struct preview: View {
-//        @State var path = NavigationPath()
-//        var body: some View{
-//            NavigationStack{
-//                PhotoChatView(photosChatViewModel: PhotoChatViewModel(connectionID: ""), path: $path)
-//            }
-//        }
-//    }
-//    return preview()
-//}

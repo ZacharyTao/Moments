@@ -16,6 +16,9 @@ struct MainView_ConnectionPreview: View {
         VStack(spacing: 2){
             HStack(spacing: 3){
                 KFImage(connection.recieverProfilePhoto)
+                    .cacheOriginalImage()
+                    .fade(duration: 0.3)
+                    .diskCacheExpiration(.days(7))
                     .resizable()
                     .scaledToFill()
                     .frame(width: 40, height: 40)
@@ -31,7 +34,9 @@ struct MainView_ConnectionPreview: View {
 
                 if let url = connection.lastPhotoURL{
                     KFImage(url)
-                        
+                        .cacheOriginalImage()
+                        .fade(duration: 0.3)
+                        .diskCacheExpiration(.days(7))
                         .resizable()
                         .scaledToFit()
                         //  .aspectRatio(3.3/4, contentMode: .fit)

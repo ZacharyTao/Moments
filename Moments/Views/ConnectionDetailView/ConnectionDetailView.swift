@@ -89,10 +89,12 @@ struct ConnectionDetailView: View {
     
     func profileImage(url: URL?) -> some View{
         KFImage(url)
+            .cacheOriginalImage()
+            .fade(duration: 0.3)
+            .diskCacheExpiration(.days(7))
             .placeholder{Image(systemName: "person.fill")}
             .resizable()
             .scaledToFill()
-            
             .frame(width: 100, height: 100)
             .clipShape(Circle())
             .overlay{

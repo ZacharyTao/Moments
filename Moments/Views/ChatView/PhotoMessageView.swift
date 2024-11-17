@@ -17,39 +17,41 @@ struct PhotoMessageView: View {
         VStack(spacing: 1){
             headerView
             Group{
-                ZStack(alignment: .bottomLeading){
+                ZStack(alignment: .bottomLeading) {
                     GeometryReader {
                         let size = $0.size
                         KFImage(photoMessageViewModel.message.photoURL)
                             .cacheOriginalImage()
+                            .fade(duration: 0.3)
+                            .diskCacheExpiration(.days(7))
                             .resizable()
                             .scaledToFill()
                             .frame(width: size.width, height: size.height)
                             .clipShape(RoundedRectangle(cornerRadius: 25))
                             .pinchZoom()
                     }.frame(height: 500)
-                    
+
                     Text(photoMessageViewModel.message.caption ?? " ")
                         .foregroundStyle(.white)
                         .font(.system(size: 20))
                         .fontWeight(.medium)
                         .padding(.horizontal, 12)
                         .padding(.vertical, 10)
-                    
+
                 }
-                
+
                 if photoMessageViewModel.messageComments.count > 0{
                     photoCommentDetailView
-                    
+
                 }
             }.onTapGesture {
                 selectedMessage = photoMessageViewModel.message
             }
-            
+
         }.padding(0)
-        
+
     }
-    
+
     var photoCommentDetailView: some View{
         VStack(alignment: .leading){
             Text("View all ^[\(photoMessageViewModel.messageComments.count) \("comment")](inflect: true)")
@@ -69,7 +71,7 @@ struct PhotoMessageView: View {
         }.padding(10)
             .font(.subheadline)
     }
-    
+
     var headerView: some View{
         HStack(spacing: 1){
             KFImage(photoMessageViewModel.messageSender.profilePictureURL)
@@ -78,6 +80,8 @@ struct PhotoMessageView: View {
                         .clipShape(Circle())
                         .frame(width: 50, height: 50)
                 }
+                .diskCacheExpiration(.days(7))
+                .fade(duration: 0.3)
                 .cacheOriginalImage()
                 .resizable()
                 .scaledToFit()
@@ -104,7 +108,7 @@ struct PhotoMessageView: View {
             menuButton.padding(.trailing)
         }.padding(0)
     }
-    
+
     var menuButton: some View{
         Menu{
             Button{
@@ -121,7 +125,7 @@ struct PhotoMessageView: View {
             }label: {
                 Label("Save Photo", systemImage: "square.and.arrow.down")
             }
-            
+
             if photoMessageViewModel.isUserMessage{
                 Button (role: .destructive){
                     Task{
@@ -135,14 +139,7 @@ struct PhotoMessageView: View {
             Image(systemName: "ellipsis")
                 .foregroundColor(.primary)
                 .font(.title3)
-            
+
         }
     }
 }
-//
-//struct messagePreviewView: PreviewProvider{
-//    static var previews: some View{
-//        MessageView(messageViewModel: MessageViewModel(message: Message(senderId: "")))
-//    }
-//
-//}

@@ -30,6 +30,7 @@ final class PhotoMessageViewModel: ObservableObject{
             await fetchMessageUserInfo()
             await fetchConnection()
         }
+
         checkMessageUser()
         fetchComments()
     }
@@ -64,9 +65,7 @@ final class PhotoMessageViewModel: ObservableObject{
         let docRef = db.collection("Users").whereField("userId", isEqualTo: userId).limit(to: 1)
         
         do {
-            //let messageSenderUser = try await docRef.getDocument(as: MomentsUser.self)
             messageSender = try await docRef.getDocuments().documents.first?.data(as: MomentsUser.self) ?? MomentsUser(userName: "Error")
-            
         } catch {
             print("Error getting document: \(error)")
         }
