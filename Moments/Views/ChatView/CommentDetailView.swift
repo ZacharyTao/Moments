@@ -69,7 +69,3 @@ struct CommentDetailView: View {
         }.padding(.horizontal, 5)
     }
 }
-//
-//#Preview {
-//    CommentDetailView(comment: MessageComment(messageId: "", senderId: "", comment: "Hi", timestamp: Date()))
-//}

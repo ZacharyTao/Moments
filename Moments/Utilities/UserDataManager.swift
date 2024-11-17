@@ -1,6 +1,6 @@
 //
 //  UserProfileViewModel.swift
-//  MomentsV2
+//  Moments
 //
 //  Created by Zachary Tao on 3/27/24.
 //
@@ -66,7 +66,6 @@ class UserDataManager: ObservableObject{
           }
     }
     
-    @MainActor
     func fetchMomentUser(){
         guard let uid = Auth.auth().currentUser?.uid else { return }
         db.collection("Users").whereField("userId", isEqualTo: uid)
@@ -100,7 +99,7 @@ class UserDataManager: ObservableObject{
     }
     
     func storeProfileImage() async {
-        guard let imageId = momentUser.userId else { return }
+        guard let imageId = momentUser.id else { return }
         let imageReference = storage.reference(withPath: "userProfilePictures/\(imageId).png")
         
         let metaData = StorageMetadata()
@@ -142,9 +141,7 @@ class UserDataManager: ObservableObject{
             } else if let data = data {
                 self.imageData = data
             }
-            
         }
-        
     }
     
     func deleteUserFromFirestore(userId: String) async throws {

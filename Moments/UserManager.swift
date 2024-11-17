@@ -18,9 +18,7 @@ final class UserManager {
 
     private var currentUser: MomentsUser?
 
-
-    private init () {
-    }
+    private init () {}
 
     // Expose current user
     func getCurrentUser() -> MomentsUser? {

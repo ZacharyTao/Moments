@@ -11,6 +11,7 @@ import FirebaseFirestoreSwift
 import FirebaseStorage
 import FirebaseAuth
 import FirebaseMessaging
+import SwiftUI
 
 
 @MainActor
@@ -29,46 +30,13 @@ class MainViewModel: ObservableObject{
     }
     
     init(){
-        //fetchConnectionPreviews()
+        fetchConnectionPreviews()
     }
-    
     
     private var db = Firestore.firestore()
     @Published var connectionPreviews: [ConnectionPreview] = []
     @Published var isLoading = false
     @Published var errorMessage = ""
-    
-//    init(){
-//        //fetchConnectionPreviews()
-//    }
-    
-//    func storeConnectionPreviewtoFirebase(){
-//        guard let userID = Auth.auth().currentUser?.uid else { return }
-//        let sortedConnection = connectionPreviews.sorted(by: {$0.timeStamp ?? Date() > $1.timeStamp ?? Date()})
-//        do{
-//            try db.collection("connectionPreview").addDocument(from: sortedConnection.first)
-//        }catch{
-//            print("Error store connection preview : \(error.localizedDescription)")
-//        }
-//    }
-    
-    func storeFCMTokenToServer(){
-        guard let userId = Auth.auth().currentUser?.uid else {    return}
-        Task{
-            do{
-                let fcmToken = try await Messaging.messaging().token()
-                if let userInstance = try await db.collection("Users").whereField("userId", isEqualTo: userId).limit(to: 1).getDocuments().documents.first?.documentID
-                {
-                    try await db.collection("Users").document(userInstance).setData(["FCMtoken": fcmToken], merge: true)
-                }
-                
-            }catch{
-                print("Error saving FCM token: \(error.localizedDescription)")
-                errorMessage = error.localizedDescription
-            }
-        }
-    }
-
     
     func fetchConnectionPreviews(){
         guard let userID = Auth.auth().currentUser?.uid else { return }
@@ -100,15 +68,18 @@ class MainViewModel: ObservableObject{
                         .limit(to: 1)
                         .getDocuments()
                     let latestMessage = try documents.documents.first?.data(as: Message.self)
-//                    let reciever = try await db.collection("Users").document(recieverID).getDocument(as: MomentsUser.self)
                     let reciever = try await db.collection("Users").whereField("userId", isEqualTo: recieverID).limit(to: 1).getDocuments().documents.first?.data(as: MomentsUser.self)
                     let currentUser = try await db.collection("Users").whereField("userId", isEqualTo: userID).limit(to: 1).getDocuments().documents.first?.data(as: MomentsUser.self)
                     if let reciever{
                         
-                        if latestMessage?.senderId == reciever.userId{
-                            self.connectionPreviews.append(ConnectionPreview(connectionID: connectionID, recieverName: reciever.userName, recieverProfilePhoto: reciever.profilePictureURL, lastPhotoURL: latestMessage?.photoURL, lastCaption: latestMessage?.caption ?? "", timeStamp: latestMessage?.timestamp, lastPhotoSenderName: reciever.userName, lastPhotoSenderProfilePic: reciever.profilePictureURL))
+                        if latestMessage?.senderId == reciever.id{
+                            withAnimation {
+                                self.connectionPreviews.append(ConnectionPreview(connectionID: connectionID, recieverName: reciever.userName, recieverProfilePhoto: reciever.profilePictureURL, lastPhotoURL: latestMessage?.photoURL, lastCaption: latestMessage?.caption ?? "", timeStamp: latestMessage?.timestamp, lastPhotoSenderName: reciever.userName, lastPhotoSenderProfilePic: reciever.profilePictureURL))
+                            }
                         }else{
-                            self.connectionPreviews.append(ConnectionPreview(connectionID: connectionID, recieverName: reciever.userName, recieverProfilePhoto: reciever.profilePictureURL, lastPhotoURL: latestMessage?.photoURL, lastCaption: latestMessage?.caption ?? "", timeStamp: latestMessage?.timestamp, lastPhotoSenderName: currentUser?.userName, lastPhotoSenderProfilePic: currentUser?.profilePictureURL))
+                            withAnimation {
+                                self.connectionPreviews.append(ConnectionPreview(connectionID: connectionID, recieverName: reciever.userName, recieverProfilePhoto: reciever.profilePictureURL, lastPhotoURL: latestMessage?.photoURL, lastCaption: latestMessage?.caption ?? "", timeStamp: latestMessage?.timestamp, lastPhotoSenderName: currentUser?.userName, lastPhotoSenderProfilePic: currentUser?.profilePictureURL))
+                            }
                         }
                     }
                 }

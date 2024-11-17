@@ -15,12 +15,13 @@ struct PhotoChatView: View {
     @StateObject var connectionDetailViewModel : ConnectionDetailViewModel
     
     @Binding var path: NavigationPath
+
     @State var addAnniversarySheet = false
     @State var showMoodSelectorSheet = false
     @State var selectedMessage: Message?
     
     var body: some View {
-        ZoomContainer{
+        ZoomContainer {
             mainPhotoMessageScrollView
                 .ignoresSafeArea(edges: .bottom)
                 .toolbar(content: myToolBarContent)
@@ -57,8 +58,6 @@ struct PhotoChatView: View {
     var mainPhotoMessageScrollView: some View{
         ScrollView(showsIndicators: false){
             VStack(spacing: 5){
-                //                moodDisplayView()
-                //                    .padding(.vertical)
                 LazyVStack{
                     ForEach(photosChatViewModel.messages){message in
                         PhotoMessageView(photoMessageViewModel: PhotoMessageViewModel(message: message, connectionId: photosChatViewModel.connectionID), selectedMessage: $selectedMessage)
@@ -80,8 +79,6 @@ struct PhotoChatView: View {
                         }
                     }
             }
-            .padding(.top, 1)
-            
         }
         .navigationDestination(item: $selectedMessage )
         {
@@ -141,8 +138,7 @@ struct PhotoChatView: View {
         }.padding(.horizontal)
         
     }
-    
-    
+
     @ToolbarContentBuilder
     func myToolBarContent() -> some ToolbarContent {
         ToolbarItem(placement: .principal){
@@ -175,7 +171,6 @@ struct PhotoChatView: View {
                 Circle().stroke(.black, lineWidth: 2)
             }
             .padding(.horizontal)
-        
     }
 }
 

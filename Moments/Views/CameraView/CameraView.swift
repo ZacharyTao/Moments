@@ -71,7 +71,8 @@ struct CameraView: View {
                     flipCameraButton
                 }.padding(.horizontal, 65)
                 
-            }     .padding(.horizontal, 5)
+            }
+            .padding(.horizontal, 5)
         }
         .navigationBarBackButtonHidden()
         .background(Color.mainColor1)
@@ -79,11 +80,11 @@ struct CameraView: View {
     }
     
     var captureButton: some View {
-        Button(action: {
+        Button {
             model.capturePhoto()
             showSend.toggle()
             path.append(CurrentView.photoPreviewView)
-        }, label: {
+        } label: {
             Circle()
                 .foregroundColor(.mainColor1)
                 .frame(width: 80, height: 80)
@@ -92,7 +93,7 @@ struct CameraView: View {
                         .stroke(Color.black.opacity(0.8), lineWidth: 5)
                         .frame(width: 65, height: 65, alignment: .center)
                 )
-        })
+        }
     }
     
     var capturedPhotoThumbnail: some View {
@@ -113,25 +114,23 @@ struct CameraView: View {
     }
     
     var flipCameraButton: some View {
-        Button(action: {
+        Button {
             model.flipCamera()
-        }, label: {
+        } label: {
             Image(systemName: "camera.rotate.fill")
                 .foregroundColor(.black)
                 .font(.title)
-        })
+        }
     }
     
     var flashButton: some View{
-        Button(action: {
+        Button {
             model.switchFlash()
-        }, label: {
+        } label: {
             Image(systemName: model.isFlashOn ? "bolt.fill" : "bolt.slash.fill")
                 .font(.largeTitle)
-        })
-        .accentColor(model.isFlashOn ? .yellow : .black)
+        } .accentColor(model.isFlashOn ? .yellow : .black)
     }
-    
 }
 
 struct ContentView_Previews: PreviewProvider {

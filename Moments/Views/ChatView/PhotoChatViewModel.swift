@@ -16,7 +16,7 @@ import Photos
 
 @MainActor
 class PhotoChatViewModel: ObservableObject{
-    
+
     @Published var connection : Connection
     @Published var connectUser : MomentsUser = MomentsUser(userName: "")
     @Published var messages : [Message] = []
@@ -25,24 +25,20 @@ class PhotoChatViewModel: ObservableObject{
     @Published var messageCount = 0
     @Published var isLoading = false
     @Published var latestMessage: Message = Message(senderId: "Error")
-    
+
     private var lastDocument: DocumentSnapshot? = nil
-    
+
     private var listenerRegistration: ListenerRegistration?
     private var db = Firestore.firestore()
-    
-    
+
+
     init(connectionID: String) {
         self.connectionID = connectionID
         self.connection = Connection()
-        //   fetchFirstMessageRealTime()
         fetchConnection()
         fetchMessageCount()
-        
-        
-        // refreshPage()
     }
-    
+
     public func fetchMessageCount() {
         db.collection("Connections").document(connectionID).collection("messages")
             .addSnapshotListener{
@@ -54,7 +50,7 @@ class PhotoChatViewModel: ObservableObject{
                 self.messageCount = documents.count
             }
     }
-    
+
     public func refreshPage(){
         isLoading = true
         lastDocument = nil
@@ -62,8 +58,7 @@ class PhotoChatViewModel: ObservableObject{
         fetchMessagePaginationVersion()
         isLoading = false
     }
-    
-    
+
     func fetchMessagePaginationVersion(){
         Task{
             do{
@@ -90,26 +85,26 @@ class PhotoChatViewModel: ObservableObject{
                     self.lastDocument = documents.documents.last
                 }
                 isLoading = false
-                
+
             }catch{
                 print("Message fetch error")
             }
         }
     }
-    
+
     func fetchFirstMessageRealTime(){
         if listenerRegistration == nil {
             listenerRegistration = db.collection("Connections").document(connectionID).collection("messages").order(by: "timestamp", descending: true)
                 .limit(to: 1)
                 .addSnapshotListener { [weak self] (querySnapshot, error) in
-                    
+
                     guard let documents = querySnapshot?.documents else {
                         self?.errorMessage = "No documents in collection"
                         return
                     }
                     let newMessages = documents.compactMap { queryDocumentSnapshot in
                         let result = Result { try queryDocumentSnapshot.data(as: Message.self) }
-                        
+
                         switch result {
                         case .success(let message):
                             self?.errorMessage = nil
@@ -133,25 +128,17 @@ class PhotoChatViewModel: ObservableObject{
                     }
                     self?.latestMessage = newMessages[0]
                 }
-            
+
         }
     }
-    
-    
-    //    public func unsubscribe() {
-    //        if listenerRegistration != nil {
-    //            listenerRegistration?.remove()
-    //            listenerRegistration = nil
-    //        }
-    //    }
-    
+
     private func fetchConnection(){
         Task{
             do{
                 let data = try await db.collection("Connections").document(connectionID).getDocument(as: Connection.self)
-                
+
                 self.connection = data
-                
+
                 guard let userID = Auth.auth().currentUser?.uid else { return }
                 var connectUserID = ""
                 for id in self.connection.participantsId{
@@ -159,16 +146,12 @@ class PhotoChatViewModel: ObservableObject{
                         connectUserID = id
                     }
                 }
-                
-//                self.connectUser = try await db.collection("Users").document(connectUserID).getDocument(as: MomentsUser.self)
                 self.connectUser = try await db.collection("Users").whereField("userId", isEqualTo: connectUserID).limit(to: 1).getDocuments().documents.first?.data(as: MomentsUser.self) ?? MomentsUser(userName: "Error: user account might be deleted")
-
-                
             }catch{
                 print("error getting connection data : \(error.localizedDescription)")
             }
         }
-        
+
     }
-    
+
 }

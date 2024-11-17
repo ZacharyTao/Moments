@@ -16,19 +16,20 @@ struct MasterView: View {
 
             case .unauthenticated:
                 LoginView()
-                        .environment(authManager)
+                    .environment(authManager)
 
             case .authenticated:
                 HomeView()
                     .environment(authManager)
-                    .transition(.asymmetric(insertion: .scale, removal: .identity)) // Slide transition for authentication view
+                    .transition(.asymmetric(insertion: .scale, removal: .identity))
             }
-        }.animation(.default, value: authManager.authenticationState)
-            .onReceive(NotificationCenter.default.publisher(for: ASAuthorizationAppleIDProvider.credentialRevokedNotification)) { event in
-                authManager.signOut()
-                if let userInfo = event.userInfo, let info = userInfo["info"] {
-                    print(info)
-                }
+        }
+        .animation(.default, value: authManager.authenticationState)
+        .onReceive(NotificationCenter.default.publisher(for: ASAuthorizationAppleIDProvider.credentialRevokedNotification)) { event in
+            authManager.signOut()
+            if let userInfo = event.userInfo, let info = userInfo["info"] {
+                print(info)
             }
+        }
     }
 }

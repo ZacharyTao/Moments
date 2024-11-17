@@ -39,14 +39,9 @@ struct EditProfileView: View {
                 .overlay(RoundedRectangle(cornerRadius: 10).stroke(.gray).frame(height: 40))
                 .padding()
 
-                
-                
                 Spacer()
                 Spacer()
             }
-          
-            
-
         }
         .navigationBarBackButtonHidden()
         .toolbar{
@@ -76,15 +71,9 @@ struct EditProfileView: View {
                         .foregroundColor(.black)
                 }
             }
-            
         }
-        
-        
-        
     }
-    
-    
-    
+
     var photoPicker: some View{
         PhotosPicker(
             selection: $selectedItem,

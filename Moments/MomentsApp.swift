@@ -149,13 +149,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         // With swizzling disabled you must set the APNs token here.
         Messaging.messaging().apnsToken = deviceToken
     }
-
-
-
-
 }
-
-
 
 extension AppDelegate: MessagingDelegate{
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
@@ -185,8 +179,6 @@ extension AppDelegate: MessagingDelegate{
                 {
                     try await db.document(userInstance).setData(["FCMtoken": fcmToken], merge: true)
                 }
-
-
             }catch{
                 print("Error saving FCM token: \(error.localizedDescription)")
                 ErrorMessage.errorMessage = "Error is here" + error.localizedDescription

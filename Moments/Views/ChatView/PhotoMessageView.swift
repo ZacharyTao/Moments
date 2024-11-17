@@ -66,7 +66,6 @@ struct PhotoMessageView: View {
                     Spacer()
                 }
             }
-            
         }.padding(10)
             .font(.subheadline)
     }
@@ -84,8 +83,7 @@ struct PhotoMessageView: View {
                 .scaledToFit()
                 .clipShape(Circle())
                 .frame(width: 50, height: 50)
-            
-            
+
             VStack(alignment: .leading){
                 Text(photoMessageViewModel.messageSender.userName)
                     .fontWeight(.semibold)
@@ -103,17 +101,14 @@ struct PhotoMessageView: View {
                     .lineLimit(1)
             }.padding(0)
             Spacer()
-            menuIcon.padding(.trailing)
+            menuButton.padding(.trailing)
         }.padding(0)
-        
-        
-        
     }
     
-    var menuIcon: some View{
+    var menuButton: some View{
         Menu{
             Button{
-                guard let url = photoMessageViewModel.message.photoURL else{return}
+                guard let url = photoMessageViewModel.message.photoURL else {return}
                 photoMessageViewModel.downloadImage(from: url) { image in
                     DispatchQueue.main.async {
                         if let image = image {
@@ -123,10 +118,8 @@ struct PhotoMessageView: View {
                         }
                     }
                 }
-                
             }label: {
                 Label("Save Photo", systemImage: "square.and.arrow.down")
-                
             }
             
             if photoMessageViewModel.isUserMessage{
@@ -138,7 +131,6 @@ struct PhotoMessageView: View {
                     Label("Delete Photo", systemImage: "trash")
                 }
             }
-            
         }label:{
             Image(systemName: "ellipsis")
                 .foregroundColor(.primary)

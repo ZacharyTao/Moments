@@ -10,14 +10,19 @@ struct LoginView: View {
     @Environment(AuthManager.self) var authManager
 
     var body: some View {
-        VStack {
+        VStack(spacing: 20) {
             Spacer()
+
             Text("Welcome to Moments")
                 .font(.title)
                 .fontWeight(.bold)
+
             Spacer()
-            AppleSignInButton.padding(.vertical)
+
+            AppleSignInButton
+
             GoogleSignInButton
+
             Spacer()
         }.padding()
     }
@@ -35,7 +40,11 @@ struct LoginView: View {
     }
 
     var GoogleSignInButton: some View{
-        Button(action: signInWithGoogle) {
+        Button {
+            Task {
+                await authManager.signInWithGoogle()
+            }
+        } label: {
             HStack(alignment: .center){
                 Image("Google")
                 Text("Sign in with Google")
@@ -47,10 +56,9 @@ struct LoginView: View {
         .buttonStyle(.bordered)
         .cornerRadius(10)
     }
+}
 
-    private func signInWithGoogle() {
-        Task {
-            await authManager.signInWithGoogle()
-        }
-    }
+#Preview {
+    LoginView()
+        .environment(AuthManager())
 }

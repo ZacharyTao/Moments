@@ -18,8 +18,6 @@ struct UserProfileView: View{
     @Environment(\.dismiss) var dismiss
     @State var presentingConfirmationDialog = false
     
-    
-    
     var body: some View{
         ZStack{
             Rectangle()
@@ -56,8 +54,6 @@ struct UserProfileView: View{
             Button("Delete Account", role: .destructive, action: deleteAccount)
             Button("Cancel", role: .cancel, action: { })
         }
-        
-        
     }
     
     

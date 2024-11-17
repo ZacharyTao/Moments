@@ -27,8 +27,6 @@ struct ConnectingView: View {
                 .frame(height: 2)
                 .foregroundStyle(.gray.opacity(0.6))
                 
-            
-            
             invitationView
             
         }.padding()

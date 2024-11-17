@@ -81,10 +81,8 @@ final class ConnectingViewModel: ObservableObject{
               }
                   
           }
-        
     }
-    
-    
+
     func searchUserWithMomentID(){
         db.collection("Users").whereField("uniqueID", isEqualTo: bondID).getDocuments { (querySnapshot, err) in
             if let err = err {
@@ -95,7 +93,6 @@ final class ConnectingViewModel: ObservableObject{
                     Task {
                         do {
                             let user = try document.data(as: MomentsUser.self)
-//                            let user = try await self.db.document("Users/\(document.documentID)").getDocument(as: MomentsUser.self)
                             self.connectingUser = user
                         }
                         catch {
@@ -120,7 +117,7 @@ final class ConnectingViewModel: ObservableObject{
                         Task {
                             do {
                                 let reciever = try document.data(as: MomentsUser.self)
-                                let invite = Invitation(senderProfilePictureURL: sender.profilePictureURL, senderName: sender.userName, senderId: sender.userId, recieverId: reciever.userId)
+                                let invite = Invitation(senderProfilePictureURL: sender.profilePictureURL, senderName: sender.userName, senderId: sender.id, recieverId: reciever.id)
                                 print("sender name is \(sender.userName)")
                                 try self.db.collection("Invitations").addDocument(from: invite)
                             }

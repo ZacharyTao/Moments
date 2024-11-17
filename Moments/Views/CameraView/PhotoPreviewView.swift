@@ -97,7 +97,6 @@ struct PhotoPreviewView: View {
             Button{
                 model.photo.caption = caption
                 userDataManager.uploadMessagetoConnection(connectionId: connectionId, photo: model.photo)
-                    
                 path.removeLast(2)
             }label: {
                 HStack{
@@ -187,7 +186,6 @@ struct PhotoPreviewView: View {
 }
 
 #Preview {
-    
     struct preview: View {
         @State var path = NavigationPath()
         var body: some View {

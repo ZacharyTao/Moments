@@ -41,7 +41,6 @@ struct AppView: View {
                     default:
                         ProgressView()
                     }
-                    
                 }
                 .navigationDestination(for: String.self){ id in
                     PhotoChatView(photosChatViewModel: PhotoChatViewModel(connectionID: id), connectionDetailViewModel: ConnectionDetailViewModel(connectionID: id), path: $path)
@@ -50,7 +49,6 @@ struct AppView: View {
                                 cameraModel.session.stopRunning()
                             }
                 }
-            
         }
     }
 }

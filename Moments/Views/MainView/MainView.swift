@@ -9,12 +9,10 @@ import SwiftUI
 
 
 extension View {
-    /// default is placeholder type
     @ViewBuilder
     func redacted(when show: Bool,
                   reason: RedactionReasons = RedactionReasons.placeholder) -> some View {
         redacted(reason: show ? reason : .invalidated)
-        
     }
 }
 
@@ -23,57 +21,51 @@ struct MainView: View {
     @Binding var path: NavigationPath
     @StateObject var mainViewModel = MainViewModel()
     @Binding var currentConnectionId: String
-    
+
     var body: some View {
-        VStack{
-            ScrollView{
-                LazyVGrid(columns: [GridItem(), GridItem()]){
-                    ForEach(mainViewModel.connectionPreviews.sorted(by: {$0.timeStamp ?? Date() > $1.timeStamp ?? Date()}), id: \.self){connection in
-                        ZStack{
-                            RoundedRectangle(cornerRadius: 15)
-                                .foregroundStyle(Color.first)
-                                .aspectRatio(2.6/4, contentMode: .fit)
-                                .ignoresSafeArea()
-                            MainView_ConnectionPreview(connection: connection)
-                                .onTapGesture {
-                                    currentConnectionId = connection.connectionID
-                                    path.append(connection.connectionID)
-                                }
-                                .padding(7)
-                        }
-                        .aspectRatio(2.6/4, contentMode: .fit)
-                    }
-                    
+        ScrollView(showsIndicators: false) {
+            LazyVGrid(columns: [GridItem(), GridItem()]) {
+                ForEach(mainViewModel.connectionPreviews.sorted(by: {$0.timeStamp ?? Date() > $1.timeStamp ?? Date()}), id: \.self){connection in
                     ZStack{
                         RoundedRectangle(cornerRadius: 15)
                             .foregroundStyle(Color.first)
                             .aspectRatio(2.6/4, contentMode: .fit)
                             .ignoresSafeArea()
-                        Image(systemName: "plus")
-                            .font(.system(size: 70))
-                            .fontWeight(.medium)
-                            .foregroundStyle(Color.second.opacity(0.85))
-                            .padding(40)
-                        
-                    }.onTapGesture {
-                        path.append(CurrentView.connectionView)
+                        MainView_ConnectionPreview(connection: connection)
+                            .onTapGesture {
+                                currentConnectionId = connection.connectionID
+                                path.append(connection.connectionID)
+                            }
+                            .padding(7)
                     }
-                    
+                    .aspectRatio(2.6/4, contentMode: .fit)
                 }
-            }.scrollIndicators(.hidden)
-                .refreshable {
-                    mainViewModel.fetchConnectionPreviews()
+
+                ZStack{
+                    RoundedRectangle(cornerRadius: 15)
+                        .foregroundStyle(Color.first)
+                        .aspectRatio(2.6/4, contentMode: .fit)
+                        .ignoresSafeArea()
+                    Image(systemName: "plus")
+                        .font(.system(size: 70))
+                        .fontWeight(.medium)
+                        .foregroundStyle(Color.second.opacity(0.85))
+                        .padding(40)
+
+                }.onTapGesture {
+                    path.append(CurrentView.connectionView)
                 }
-                .redacted(when: mainViewModel.isLoading)
+
+            }
         }
-        .onAppear{
+        .refreshable {
             mainViewModel.fetchConnectionPreviews()
         }
-        .navigationBarTitle(Text(""), displayMode: .inline)
+        .redacted(when: mainViewModel.isLoading)
         .padding()
+        .navigationBarTitle(Text(""), displayMode: .inline)
         .toolbar{
-            ToolbarItem(placement: .topBarLeading){
-                
+            ToolbarItem(placement: .topBarTrailing){
                 Button{
                     path.append(CurrentView.userProfileView)
                 }label: {
@@ -85,15 +77,15 @@ struct MainView: View {
                 .foregroundStyle(.black)
                 .fontWeight(.bold)
             }
+
             ToolbarItem(placement: .principal){
                 Text("Moments")
                     .fontWeight(.bold)
                     .font(.title2)
                     .foregroundStyle(Color.second)
             }
-            
         }
-        
+
     }
 }
 
@@ -110,5 +102,4 @@ struct MainView: View {
         }
     }
     return preview()
-    
 }
