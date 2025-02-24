@@ -30,9 +30,8 @@ Moments is a social media application developed for iOS, allowing users to captu
 
 - **Real-time Photo Capturing and Sharing:** Capture and share moments instantly with your friends and followers.
 - **Home Screen Widget:** WidgetKit displays recent photos directly on the home screen for quick access.
-- **User Interface:** Built with SwiftUI for a modern, responsive interface, and UIKit for specific UI components.
 - **Custom Camera Functionalities:** Utilizes AVFoundation to provide a tailored camera experience.
-- **Location Sharing:** CoreLocation framework enables users to share the location and time of their photos.
+- **Location Sharing:** CoreLocation enables users to share the location and time of their photos.
 - **Secure User Authentication:** Firebase Authentication ensures secure sign-in and user management.
 - **Cloud Storage:** Cloud Firestore is used for efficient data storage and photo uploads.
 - **Real-time Push Notifications:** Cloud Functions and TypeScript are employed to send notifications based on database updates, enhancing user engagement.
@@ -40,18 +39,6 @@ Moments is a social media application developed for iOS, allowing users to captu
 ## Installation
 
 To join the internal testing group, please contact zacharywtao@gmail.com
-
-## Usage
-
-After launching the app, users can sign in or sign up using Apple or Google accounts. Once authenticated, users can:
-
-- Capture new photos or select from their gallery.
-- Share photos with friends, including captions, time, and place.
-- View recent shared moments on the iOS home screen widget.
-
-## Contributing
-
-Contributions are welcome! Please open an issue or submit a pull request with your changes.
 
 ## Contact
 
