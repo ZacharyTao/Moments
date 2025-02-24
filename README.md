@@ -20,7 +20,6 @@ Moments is a social media application developed for iOS, allowing users to captu
   <img src="https://github.com/user-attachments/assets/99c10a06-61f3-4474-b50e-444aac37c1c3" width="200" />
   <img src="https://github.com/user-attachments/assets/3e6877fa-e226-40f8-b4bb-e45873c411fb" width="200" /> 
   <img src="https://github.com/user-attachments/assets/9bc48b0c-3060-414b-80ca-b47ffec8ec14" width="200" />
-  <img src="https://github.com/user-attachments/assets/61373b62-bc22-4e00-b628-facbc7afd52c" width="200" />
 </p>
 
 ### Widget view: small/big size
